@@ -218,7 +218,7 @@ function pageFits(page){
   });
 }
 function fitPage(page){
-  for(const px of [8.6,8.3,8.0,7.7,7.4,7.1,6.8]){
+  for(const px of [9.6,9.4,9.2,9.0,8.8,8.6,8.3,8.0,7.7,7.4,7.1,6.8]){
     page.style.setProperty('--body-font',px+'px');
     if(pageFits(page))return px;
   }
