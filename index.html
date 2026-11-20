@@ -34,7 +34,32 @@ main{padding:20px 10px 40px;display:flex;flex-direction:column;align-items:cente
   .paper.one{width:74.25mm} .slip{border-right:.25mm dashed #aaa}
 }
 </style>
-</head>
+<style>
+/* Document dimensions reproduce the four narrow slips on the reference A4. */
+.paper{padding:5mm 5mm 0;gap:2.5mm;align-items:start}
+.paper.one{padding:5mm 0 0}
+.slip{height:auto;min-height:0;width:100%;padding:0;border:.22mm solid #777;display:block}
+.slip:last-child{border-right:.22mm solid #777}
+.slip .brandhead{height:12.3mm;display:flex;align-items:center;justify-content:space-around;gap:2mm;padding:1mm 1.5mm}
+.slip .smooth{font-family:Georgia,serif;font-size:13px;color:#00a59e;font-weight:900;letter-spacing:-1px;white-space:nowrap}
+.slip .smooth sup{font-size:8px;color:#8cba56}
+.slip .brandhead strong{font-size:10px;white-space:nowrap}
+.slip .dentiste{font-size:7.7px;color:#007861;font-weight:900;letter-spacing:-.3px;white-space:nowrap}
+.slip .dentiste .cross{display:inline-block;background:#00816c;width:11px;height:11px;vertical-align:middle;margin-right:2px;clip-path:polygon(33% 0,67% 0,67% 33%,100% 33%,100% 67%,67% 67%,67% 100%,33% 100%,33% 67%,0 67%,0 33%,33% 33%)}
+.slip .dentiste small{display:block;text-align:center;font-size:3.6px;letter-spacing:0}
+.slip table{font-size:5.45px;line-height:1.15}
+.slip th,.slip td{border:.22px solid #9b9b9b;padding:1px 1px}
+.slip th{background:#00a748;color:#fff;border-color:#078637;height:18px;font-size:5.5px}
+.slip th.name{position:relative}
+.slip th.name .seven{position:absolute;left:-7px;top:1px;background:white;border:1px solid #eee;color:#e21e25;font-size:5px;line-height:1;padding:1px;font-weight:900}
+.slip td{height:11.6px}
+.slip .barcode{width:12%}.slip .name{width:58%}.slip .price{width:8%}.slip .pk{width:6%}.slip .status{width:8%}.slip .qty{width:8%}
+.slip .foot{margin-top:0;border-top:0;font-size:5.65px;padding:6px 1px 2px;line-height:2.25}
+.slip .foot .signrow{justify-content:flex-start}
+.slip .foot .signrow span{display:block;width:50%;overflow:hidden}
+.slip .tagred{color:red;font-weight:bold}
+@media print{.paper{padding:5mm 5mm 0}.slip{border:.22mm solid #777!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.slip th{background:#00a748!important;color:#fff!important}.paper.one{padding:5mm 0 0}}
+</style></head>
 <body>
 <div class="controls">
 <select id="mode" aria-label="รูปแบบใบฝากสั่ง">
@@ -81,8 +106,12 @@ function sorted(){
  });
 }
 function createSlip(list){
- const lines=list.map(p=>'<tr><td>'+safe(p.barcode)+'</td><td class="name">'+safe(p.name)+'</td><td>'+safe(p.price)+'</td><td>'+safe(p.pk)+'</td><td></td><td></td></tr>').join('');
- return '<section class="slip"><h2>ใบฝากสั่ง</h2><table><colgroup><col class="barcode"><col class="name"><col class="price"><col class="pk"><col class="status"><col class="qty"></colgroup><thead><tr><th>BARCODE</th><th class="name">SKU NAME THAI</th><th>ราคา</th><th>PK</th><th>สถานะ</th><th>ฝากสั่ง</th></tr></thead><tbody>'+lines+'</tbody></table><div class="foot"><div class="signrow"><span>วันที่..........................</span><span>วันที่..........................</span></div><div class="signrow"><span>สั่งโดย........................</span><span>รับทราบโดย..................</span></div></div></section>';
+ const lines=list.map(p=>{
+  let name=safe(p.name);
+  name=name.replace(/\((Focus|NEW)\)/gi,'<span class="tagred">($1)</span>');
+  return '<tr><td>'+safe(p.barcode)+'</td><td class="name">'+name+'</td><td>'+safe(p.price)+'</td><td>'+safe(p.pk)+'</td><td></td><td></td></tr>';
+ }).join('');
+ return '<section class="slip"><header class="brandhead"><span class="smooth">SMOOTH E<sup>+</sup></span><strong>ใบฝากสั่ง</strong><span class="dentiste"><span class="cross"></span>DENTISTE<small>FOR YOUR HEALTH</small></span></header><table><colgroup><col class="barcode"><col class="name"><col class="price"><col class="pk"><col class="status"><col class="qty"></colgroup><thead><tr><th>BARCODE</th><th class="name"><span class="seven">7<br>ELEVEN</span>SKU NAME THAI</th><th>ราคา</th><th>PK</th><th>สถานะ</th><th>ฝากสั่ง</th></tr></thead><tbody>'+lines+'</tbody></table><div class="foot"><div class="signrow"><span>วันที่..........................</span><span>วันที่..........................</span></div><div class="signrow"><span>สั่งโดย........................</span><span>รับทราบโดย..................</span></div></div></section>';
 }
 function draw(){
  const list=sorted(),layout=el('layout').value,count=layout==='four'?4:1;
