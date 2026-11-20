@@ -94,12 +94,12 @@ main{padding:20px 10px 40px;display:flex;flex-direction:column;align-items:cente
 </style>
 <style id="a4-cut-ready">
 /* Four edge-to-edge strips: 297 mm / 4 = 74.25 mm.
-   Each slip occupies the entire 210 mm paper height. */
+   Each slip is 200 mm tall with 5 mm top and bottom clearance. */
 .paper,
 .paper.one{
   width:297mm !important;
   height:210mm !important;
-  padding:0 !important;
+  padding:5mm 0 !important;
   margin:0 !important;
   gap:0 !important;
   grid-template-columns:repeat(4,74.25mm) !important;
@@ -110,9 +110,9 @@ main{padding:20px 10px 40px;display:flex;flex-direction:column;align-items:cente
 .paper .slip{
   box-sizing:border-box;
   width:74.25mm !important;
-  height:210mm !important;
-  min-height:210mm !important;
-  max-height:210mm !important;
+  height:200mm !important;
+  min-height:200mm !important;
+  max-height:200mm !important;
   display:flex !important;
   flex-direction:column !important;
   overflow:hidden;
@@ -131,7 +131,7 @@ main{padding:20px 10px 40px;display:flex;flex-direction:column;align-items:cente
 }
 .paper .slip table{
   width:100%;
-  height:calc(210mm - 12mm - 12mm) !important;
+  height:calc(200mm - 12mm - 12mm) !important;
   flex:1 1 auto;
   margin:0;
   border-collapse:collapse;
