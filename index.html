@@ -294,7 +294,7 @@ async function load(){
 }
 const DEFAULT_PRINT_MARGINS={left:19,right:5}; // Canon E470 trailing edge is 16.7mm unprintable.
 function loadMargin(key,fallback){
-  try{const v=Number(localStorage.getItem('sme_callcard_print_'+key));return Number.isFinite(v)&&v>=0&&v<=40?v:fallback}
+  try{const stored=localStorage.getItem('sme_callcard_print_'+key);if(stored===null)return fallback;const v=Number(stored);return Number.isFinite(v)&&v>=0&&v<=40?v:fallback}
   catch(_){return fallback}
 }
 function saveMargin(key,v){try{localStorage.setItem('sme_callcard_print_'+key,String(v))}catch(_){}}
