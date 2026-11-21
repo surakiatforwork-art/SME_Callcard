@@ -53,11 +53,11 @@ main{padding:18px 8px 40px;display:flex;align-items:center;flex-direction:column
 }
 /* Fixed print widths per 74.25mm slip: narrow status/ordered cells leave room for handwritten shop notes in SKU NAME. */
 .slip col.barcode{width:10.8mm}
-.slip col.name{width:44.4mm}
+.slip col.name{width:40.7mm}
 .slip col.price{width:6mm}
 .slip col.pk{width:4.5mm}
-.slip col.status{width:4.2mm}
-.slip col.qty{width:4.35mm}
+.slip col.status{width:6.1mm}
+.slip col.qty{width:6.15mm}
 .slip th,.slip td{
   border-bottom:.18mm solid #929292;
   border-right:.12mm solid #b6b6b6;
@@ -78,7 +78,7 @@ main{padding:18px 8px 40px;display:flex;align-items:center;flex-direction:column
   -webkit-print-color-adjust:exact;print-color-adjust:exact;
 }
 .slip th.name{text-align:left;padding-left:.4mm}
-.slip th:nth-child(5),.slip th:nth-child(6){font-size:5.3px;padding:.25mm 0;overflow-wrap:anywhere;word-break:break-all;line-height:1.1}
+.slip th:nth-child(5),.slip th:nth-child(6){font-size:5.15px;padding:0 .1mm;white-space:nowrap;overflow-wrap:normal;word-break:keep-all;letter-spacing:-.08px;line-height:1.05}
 .slip .headerName{display:flex;align-items:center;gap:1mm;white-space:nowrap;font-size:6.2px}
 .slip .logoSeven{display:block;width:4.2mm;height:auto;max-height:3mm;object-fit:contain;background:#fff;flex-shrink:0}
 .slip tbody tr{break-inside:avoid;page-break-inside:avoid}
