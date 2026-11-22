@@ -239,7 +239,7 @@ function pageFits(page){
     const foot=slip.querySelector('.foot').getBoundingClientRect();
     if(!last)return false;
     const lastBox=last.getBoundingClientRect();
-    if(table.right>slipBox.right+1 || foot.bottom>slipBox.bottom+1.5 || lastBox.bottom>foot.top-1)return false;
+    if(table.right>slipBox.right+1 || foot.bottom>slipBox.bottom+1.5 || lastBox.bottom>foot.top+1)return false;
     for(const td of slip.querySelectorAll('tbody td')){
       if(td.scrollWidth>td.clientWidth+2)return false;
     }
