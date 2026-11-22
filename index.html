@@ -89,6 +89,8 @@ main{padding:18px 8px 40px;display:flex;align-items:center;flex-direction:column
   -webkit-print-color-adjust:exact;print-color-adjust:exact;
 }
 .slip th.name{text-align:left;padding-left:.4mm}
+/* Shared screen/print typography: keep narrow column headings on one line. */
+.slip thead th:first-child,.slip thead th:nth-child(3){font-size:5.2px;white-space:nowrap;overflow-wrap:normal;word-break:keep-all;padding:.35mm .05mm;line-height:1.1}
 .slip th:nth-child(5),.slip th:nth-child(6){font-size:5.15px;padding:0 .1mm;white-space:nowrap;overflow-wrap:normal;word-break:keep-all;letter-spacing:-.08px;line-height:1.05}
 .slip .headerName{display:flex;align-items:center;gap:1mm;white-space:nowrap;font-size:6.2px}
 .slip .logoSeven{display:block;width:4.2mm;height:auto;max-height:3mm;object-fit:contain;background:#fff;flex-shrink:0}
