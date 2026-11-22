@@ -112,14 +112,17 @@ main{padding:18px 8px 40px;display:flex;align-items:center;flex-direction:column
 .slip td:nth-child(5),.slip td:nth-child(6){padding:0!important}
 .slip .tagred{color:#c81818;font-weight:700}
 .slip .foot{
-  margin-top:auto;
-  height:9mm;min-height:9mm;flex:0 0 9mm;
-  padding:1mm .6mm 0;
-  border-top:0; /* no horizontal separator above signatures */
-  font-size:6px;line-height:1.8;
+  margin-top:0;
+  min-height:9mm;flex:1 0 9mm;
+  padding:0;
+  border:.18mm solid #111;border-top:0;
+  display:grid;grid-template-rows:1fr 1fr;
+  font-size:6px;font-weight:700;line-height:1.4;
 }
-.slip .signrow{display:grid;grid-template-columns:1fr 1fr;gap:1mm}
-.slip .signrow span{display:block;min-width:0;overflow:hidden;white-space:nowrap}
+.slip .signrow{display:grid;grid-template-columns:24% 76%;gap:0;min-height:0}
+.slip .signrow span{display:flex;align-items:center;min-width:0;white-space:nowrap;padding:.5mm .4mm}
+.slip .signrow span + span{border-left:.18mm solid #111}
+.slip .signrow i{display:block;flex:1;min-width:0;max-width:17mm;border-bottom:.18mm dotted #111;height:1em;margin-left:.2mm}
 @media(max-width:1150px){
  main{align-items:flex-start;overflow-x:auto}
  .paper{box-shadow:0 4px 16px #0002}
@@ -216,8 +219,8 @@ function createSlip(list){
     '<thead><tr><th>BARCODE</th><th class="name"><div class="headerName"><img class="logoSeven" src="'+logoSeven+'" alt="7-Eleven"><span>SKU NAME THAI</span></div></th>'+
     '<th>ราคา</th><th>PK</th><th>สถานะ</th><th>ฝากสั่ง</th></tr></thead>'+
     '<tbody>'+lines+'</tbody></table>'+
-    '<footer class="foot"><div class="signrow"><span>วันที่..........................</span><span>วันที่..........................</span></div>'+
-    '<div class="signrow"><span>สั่งโดย........................</span><span>รับทราบโดย..................</span></div></footer>'+
+    '<footer class="foot"><div class="signrow"><span>วันที่<i></i></span><span>วันที่<i></i></span></div>'+
+    '<div class="signrow"><span>สั่งโดย<i></i></span><span>รับทราบโดย<i></i></span></div></footer>'+
     '</section>';
 }
 function makePage(list,layout){
