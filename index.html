@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>㺽ҡ��� � SME Callcard</title>
+<title>ใบฝากสั่ง • SME Callcard</title>
 
 
 
@@ -140,29 +140,29 @@ main{padding:18px 8px 40px;display:flex;align-items:center;flex-direction:column
 </head>
 <body>
 <div class="controls">
-<select id="mode" aria-label="�ٻẺ㺽ҡ���">
-<option value="appsheet">���§��� AppSheet</option>
-<option value="category">���§����������Թ���</option>
+<select id="mode" aria-label="รูปแบบใบฝากสั่ง">
+<option value="appsheet">เรียงตาม AppSheet</option>
+<option value="category">เรียงตามประเภทสินค้า</option>
 </select>
-<select id="layout" aria-label="�ӹǹ�">
-<option value="four">��� 4 � / A4 �ǹ͹</option>
-<option value="one">�¡ 1 �</option>
+<select id="layout" aria-label="จำนวนใบ">
+<option value="four">รวม 4 ใบ / A4 แนวนอน</option>
+<option value="one">แยก 1 ใบ</option>
 </select>
-<button type="button" id="reload">? �ѻവ������</button>
-<button class="primary" type="button" id="print">����� / �ѹ�֡ PDF</button>
+<button type="button" id="reload">↻ อัปเดตข้อมูล</button>
+<button class="primary" type="button" id="print">พิมพ์ / บันทึก PDF</button>
 <details class="printer-calibration">
-  <summary>��Ѻ�ͺ Canon E470</summary>
+  <summary>ปรับขอบ Canon E470</summary>
   <div class="calibration-fields">
-    <label>�ͺ���� (��.)<input id="marginLeft" type="number" min="0" max="40" step="0.5" value="19"></label>
-    <label>�ͺ��� (��.)<input id="marginRight" type="number" min="0" max="30" step="0.5" value="5"></label>
-    <button type="button" id="resetMargins">���ҷ���й� (19 / 5)</button>
-    <p>���й���ʴ���������ҧ A4 ����������ԧ����͹�ѹ � 㺽ҡ��� 4 ��ѧ�Դ�ѹ����Ѻ�Ѵ</p>
+    <label>ขอบซ้าย (มม.)<input id="marginLeft" type="number" min="0" max="40" step="0.5" value="19"></label>
+    <label>ขอบขวา (มม.)<input id="marginRight" type="number" min="0" max="30" step="0.5" value="5"></label>
+    <button type="button" id="resetMargins">ใช้ค่าที่แนะนำ (19 / 5)</button>
+    <p>ระยะนี้แสดงบนตัวอย่าง A4 และใช้พิมพ์จริงเหมือนกัน • ใบฝากสั่ง 4 ใบยังชิดกันสำหรับตัด</p>
   </div>
 </details>
-<span id="status">���ѧ��Ŵ�</span>
-<span class="print-note">������ҧ��鹷������ Canon E470 ? A4 �ǹ͹ ? Scale 100% ? �ͺ˹�Ҿ���� None ? �Դ���/���¡�д��</span>
+<span id="status">กำลังโหลด…</span>
+<span class="print-note">ตัวอย่างพื้นที่พิมพ์ Canon E470 · A4 แนวนอน · Scale 100% · ขอบหน้าพิมพ์ None · ปิดหัว/ท้ายกระดาษ</span>
 </div>
-<main id="pages"><div id="message">���ѧ��Ŵ㺽ҡ��觨ҡ Google Sheets�</div></main>
+<main id="pages"><div id="message">กำลังโหลดใบฝากสั่งจาก Google Sheets…</div></main>
 <script>
 'use strict';
 const API='https://script.google.com/macros/s/AKfycbxBmhPpf3-YhCmVbj84BcCcnhd1jb2bad1y_qaAATdgFK7d2ZWKRihQP34wNKRWpAQ/exec';
@@ -176,8 +176,8 @@ function requestCatalog(){
   const tag=document.createElement('script');
   function clear(){if(done)return;done=true;clearTimeout(timer);tag.remove();delete window[cb]}
   window[cb]=data=>{clear();resolve(data)};
-  tag.onerror=()=>{clear();reject(new Error('�������ö�������� API'))};
-  timer=setTimeout(()=>{clear();reject(new Error('��������� API'))},20000);
+  tag.onerror=()=>{clear();reject(new Error('ไม่สามารถเชื่อมต่อ API'))};
+  timer=setTimeout(()=>{clear();reject(new Error('หมดเวลารอ API'))},20000);
   tag.src=API+'?action=catalog&callback='+cb+'&_='+Date.now();
   document.head.appendChild(tag);
  });
@@ -211,13 +211,13 @@ function createSlip(list){
   }).join('');
   return '<section class="slip">'+
     '<header class="brandhead"><img class="logoSmooth" src="'+logoSmooth+'" alt="Smooth E">'+
-    '<strong>㺽ҡ���</strong><img class="logoDentiste" src="'+logoDentiste+'" alt="Dentiste"></header>'+
+    '<strong>ใบฝากสั่ง</strong><img class="logoDentiste" src="'+logoDentiste+'" alt="Dentiste"></header>'+
     '<table><colgroup><col class="barcode"><col class="name"><col class="price"><col class="pk"><col class="status"><col class="qty"></colgroup>'+
     '<thead><tr><th>BARCODE</th><th class="name"><div class="headerName"><img class="logoSeven" src="'+logoSeven+'" alt="7-Eleven"><span>SKU NAME THAI</span></div></th>'+
-    '<th>�Ҥ�</th><th>PK</th><th>ʶҹ�</th><th>�ҡ���</th></tr></thead>'+
+    '<th>ราคา</th><th>PK</th><th>สถานะ</th><th>ฝากสั่ง</th></tr></thead>'+
     '<tbody>'+lines+'</tbody></table>'+
-    '<footer class="foot"><div class="signrow"><span>�ѹ���..........................</span><span>�ѹ���..........................</span></div>'+
-    '<div class="signrow"><span>�����........................</span><span>�Ѻ��Һ��..................</span></div></footer>'+
+    '<footer class="foot"><div class="signrow"><span>วันที่..........................</span><span>วันที่..........................</span></div>'+
+    '<div class="signrow"><span>สั่งโดย........................</span><span>รับทราบโดย..................</span></div></footer>'+
     '</section>';
 }
 function makePage(list,layout){
@@ -254,8 +254,8 @@ function draw(){
   const list=sorted(),layout=el('layout').value,mount=el('pages');
   mount.innerHTML='';
   if(!list.length){
-    mount.innerHTML='<div id="message">��辺��¡���Թ��� ��سҵ�Ǩ�ͺ Google Sheets</div>';
-    el('status').textContent='������Թ���';return;
+    mount.innerHTML='<div id="message">ไม่พบรายการสินค้า กรุณาตรวจสอบ Google Sheets</div>';
+    el('status').textContent='ไม่มีสินค้า';return;
   }
   // Never crop data: if one slip cannot fit all rows, repeat the four-up design on additional A4 pages.
   let index=0;
@@ -272,25 +272,25 @@ function draw(){
       else hi=n-1;
     }
     if(best===0){
-      mount.innerHTML='<div id="message">��¡���Թ����դ�������Թ��鹷������ ��سҵ�Ǩ�ͺ�����Թ���� Google Sheets</div>';
-      el('status').textContent='�Ѵ˹����������';return;
+      mount.innerHTML='<div id="message">รายการสินค้ามีความยาวเกินพื้นที่พิมพ์ กรุณาตรวจสอบชื่อสินค้าใน Google Sheets</div>';
+      el('status').textContent='จัดหน้าไม่สำเร็จ';return;
     }
     const paper=makePage(list.slice(index,index+best),layout);
     paper.style.setProperty('--body-font',bestFont+'px');
     mount.appendChild(paper);
     index+=best;pageCount++;
   }
-  el('status').textContent=list.length+' ��¡�� ? '+pageCount+' ˹��';
+  el('status').textContent=list.length+' รายการ · '+pageCount+' หน้า';
 }
 
 async function load(){
- el('status').textContent='���ѧ��Ŵ�';el('reload').disabled=true;
+ el('status').textContent='กำลังโหลด…';el('reload').disabled=true;
  try{
   const r=await requestCatalog();
-  if(!r||r.ok!==true||!Array.isArray(r.items))throw new Error((r&&r.error)||'API �觢����żԴ�ٻẺ');
+  if(!r||r.ok!==true||!Array.isArray(r.items))throw new Error((r&&r.error)||'API ส่งข้อมูลผิดรูปแบบ');
   products=r.items;
   draw();
- }catch(err){el('status').textContent='�������������';el('pages').innerHTML='<div id="message">'+safe(err.message)+'<br>�ô��Ǩ�ͺ��� Deploy �ͧ Apps Script</div>'}
+ }catch(err){el('status').textContent='เชื่อมต่อไม่ได้';el('pages').innerHTML='<div id="message">'+safe(err.message)+'<br>โปรดตรวจสอบการ Deploy ของ Apps Script</div>'}
  finally{el('reload').disabled=false}
 }
 const DEFAULT_PRINT_MARGINS={left:19,right:5}; // Canon E470 trailing edge is 16.7mm unprintable.
